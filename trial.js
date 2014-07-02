@@ -1,5 +1,7 @@
-var _ = require('underscore');
+//var Book = require('./entities/Book');
+//
+//new Book({});
 
-var ou = require('./handlers/TargetHandler');
+var Appointment = require('./handlers/StockHandler');
 
-var au = require('./handlers/OrderHandler.js');
+new Appointment();

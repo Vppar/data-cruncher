@@ -49,6 +49,7 @@ var ObjectUtils = {
             instance = p1;
 
             args = Array.prototype.slice.call(arguments, 1);
+            console.log('123');
             return instance.constructor.parent.apply(instance, args);
         }
     },

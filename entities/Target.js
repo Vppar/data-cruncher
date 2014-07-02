@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var ObjectUtils = require('./ObjectUtils.js');
+var ObjectUtils = require('./../handlers/ObjectUtils.js');
 
 function Target(uuid, targets, type, totalAmount, name) {
 

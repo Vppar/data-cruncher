@@ -1,5 +1,5 @@
 var ObjectUtils = require('./ObjectUtils.js');
-var Target = require('./Target.js');
+var Target = require('./../entities/Target.js');
 var ArrayUtils = require('./ArrayUtils.js');
 
 function TargetHandler() {

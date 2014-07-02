@@ -1,7 +1,7 @@
 var _ = require('underscore');
 var ObjectUtils = require('./ObjectUtils.js');
 var ArrayUtils = require('./ArrayUtils.js');
-var Order = require('./Order.js');
+var Order = require('./../entities/Order.js');
 
 function OrderHandler() {
 
