@@ -1,6 +1,6 @@
 var Firebase = require('firebase');
-var OrderHandler = require('./handlers/OrderHandler.js');
-var UserState = require('./handlers/UserState.js');
+var OrderHandler = require('./lib/handlers/OrderHandler.js');
+var UserState = require('./lib/handlers/UserState.js');
 
 var fbDev = new Firebase('https://voppwishlist.firebaseio.com/');
 var fbPrd = new Firebase('https://vopp.firebaseio.com/');

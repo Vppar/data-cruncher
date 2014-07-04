@@ -1,7 +1,3 @@
-//var Book = require('./entities/Book');
-//
-//new Book({});
-
-var Appointment = require('./handlers/StockHandler');
+var Appointment = require('./lib/handlers/StockHandler');
 
 new Appointment();
