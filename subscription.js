@@ -5,11 +5,11 @@ var WorkQueue = require('./lib/thirdparty/workqueue.js');
 var fbDev = new Firebase('https://voppwishlist.firebaseio.com/');
 
 fbDev.auth("zDDGKRwrgxuJ2gpzMVK5I9h2gNDB4dFup7AW5nrh", function (error) {
-    if (error) {
-        console.log("Login Failed!", error);
-    } else {
-        console.log("Login Succeeded!");
-    }
+  if (error) {
+    console.log("Login Failed!", error);
+  } else {
+    console.log("Login Succeeded!");
+  }
 });
 
 var fbRoot = fbDev;
@@ -18,10 +18,21 @@ var fbRoot = fbDev;
  console.log(userRef.child('email').val());
  });*/
 
-state = new UserState(fbRoot.child('users').child('wesleyakio@tuntscorp_com'));
+var users = ['wesleyakio@tuntscorp_com'];
+var states = [];
 
+for (var username in users) {
+  states[username] = new UserState(fbRoot.child('users').child(username));
+}
 
 var subscriptionUpdateQueue = userRef.root().child('queues').child('pending').child('subscription-consultant-update').push(event);
-new WorkQueue(subscriptionUpdateQueue, function(data, whenFinished){
-    whenFinished();
+new WorkQueue(subscriptionUpdateQueue, function (data, whenFinished) {
+
+  var username = data.consultant.email.replace(/\.+/g, '_');
+
+  if (state[username]) {
+    state[username].interfaces.consultant.update({uuid: data.consultant.uuid, subscriptionExpirationDate: data.consultant.newSubscriptionExpirationDate});
+  }
+
+  whenFinished();
 });
