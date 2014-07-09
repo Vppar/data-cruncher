@@ -5,7 +5,7 @@ chai.use(require("chai-as-promised"));
 var requireHelper = require('../../require-helper');
 
 var Subscription = requireHelper('entities/Subscription');
-var SubscriptionHandler = requireHelper('handlers/SubscriptionHandlers');
+var SubscriptionHandler = requireHelper('handlers/SubscriptionHandler');
 
 describe('Subscription handler', function () {
 
