@@ -25,7 +25,7 @@ for (var username in users) {
   states[username] = new UserState(fbRoot.child('users').child(username));
 }
 
-var subscriptionUpdateQueue = userRef.root().child('queues').child('pending').child('subscription-consultant-update').push(event);
+var subscriptionUpdateQueue = userRef.root().child('queues').child('pending').child('subscription-consultant-update');
 new WorkQueue(subscriptionUpdateQueue, function (data, whenFinished) {
 
   var username = data.consultant.email.replace(/\.+/g, '_');
