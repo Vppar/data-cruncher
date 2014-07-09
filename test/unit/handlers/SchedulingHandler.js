@@ -23,18 +23,73 @@ describe('Scheduling handler', function () {
         done();
     });
 
-    xit('should update a Schedule', function (done) {
+    it('should update a Schedule with items', function (done) {
         var schedulingHandler = new SchedulingHandler();
 
         var schedule = new Schedule(1, new Date(), 2, new Date(), 4,[{id:1, dQty:0, sQty:0}]);
 
         schedulingHandler.handlers.schedulingCreateV1(schedule);
 
-
-
-        schedulingHandler.handlers.schedulingUpdateV1({uuid:1, items:[{id:1, dQty:0, sQty:0}], updated:new Date(), date:date, status:4});
+        schedulingHandler.handlers.schedulingUpdateV1({uuid:1, items:[{id:1, dQty:0, sQty:0}], updated:new Date(), date: new Date(), status:4});
 
         expect(schedulingHandler.schedulings[0].status).to.eql(4);
+        done();
+    });
+
+    it('should update a Schedule without items', function (done) {
+        var schedulingHandler = new SchedulingHandler();
+
+        var schedule = new Schedule(1, new Date(), 2, new Date(), 4,[]);
+
+        schedulingHandler.handlers.schedulingCreateV1(schedule);
+
+        schedulingHandler.handlers.schedulingUpdateV1({uuid:1, items:[{id:1, dQty:0, sQty:0}], updated:new Date(), date: new Date(), status:4});
+
+        expect(schedulingHandler.schedulings[0].status).to.eql(4);
+        done();
+    });
+
+    it('should fail to update a Schedule', function (done) {
+        var schedulingHandler = new SchedulingHandler();
+
+        expect(function(){
+            schedulingHandler.handlers.schedulingUpdateV1({uuid:1});
+        }).to.throw(Error);
+        done();
+    });
+
+    it('should remove a Schedule', function (done) {
+        var schedulingHandler = new SchedulingHandler();
+
+        var schedule = new Schedule(1, new Date(), 2, new Date(), 4,[]);
+
+        schedulingHandler.handlers.schedulingCreateV1(schedule);
+
+        schedulingHandler.handlers.schedulingRemoveV1({uuid:1, items:[], updated:new Date(), date: new Date()});
+
+        expect(schedulingHandler.schedulings[0].status).to.eql(4);
+        done();
+    });
+
+    it('should fail to remove a Schedule', function (done) {
+        var schedulingHandler = new SchedulingHandler();
+
+        expect(function(){
+            schedulingHandler.handlers.schedulingRemoveV1({uuid:1});
+        }).to.throw(Error);
+        done();
+    });
+
+    it('should nuke all Schedules', function (done) {
+        var schedulingHandler = new SchedulingHandler();
+
+        schedulingHandler.handlers.schedulingCreateV1(new Schedule({}));
+        schedulingHandler.handlers.schedulingCreateV1(new Schedule({}));
+        schedulingHandler.handlers.schedulingCreateV1(new Schedule({}));
+
+        schedulingHandler.handlers.nukeSchedulingV1();
+
+        expect(schedulingHandler.schedulings.length).to.eql(0);
         done();
     });
 });

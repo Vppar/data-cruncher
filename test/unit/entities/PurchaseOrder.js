@@ -13,6 +13,18 @@ describe('PurchaseOrder entity', function () {
         done();
     });
 
+    it('should create an PurchaseOrder object', function (done) {
+        expect(new PurchaseOrder(1, 1, 2, 3, 2, 2)).to.be.instanceof(PurchaseOrder);
+        done();
+    });
+
+    it('should fail to create an PurchaseOrder object with an invalid object', function (done) {
+        expect(function () {
+            new PurchaseOrder({uuid:1, created:1, amount:2, discount:3, points:2, invalid:2});
+        }).to.throw(Error);
+        done();
+    });
+
     it('should fail to create an PurchaseOrder object', function (done) {
         expect(function () {
             new PurchaseOrder();

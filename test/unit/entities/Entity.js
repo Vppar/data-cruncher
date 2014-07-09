@@ -4,18 +4,32 @@ chai.use(require("chai-as-promised"));
 
 var requireHelper = require('../../require-helper');
 
-var Book = requireHelper('entities/Book');
+var Entity = requireHelper('entities/Entity');
 
-describe('Book entity', function () {
+describe('Entity entity', function () {
 
-    it('should create an Book object', function (done) {
-        expect(new Book({})).to.be.instanceof(Book);
+    it('should create an Entity object', function (done) {
+        expect(new Entity({})).to.be.instanceof(Entity);
         done();
     });
 
-    it('should fail to create an Book object', function (done) {
+    it('should create an Entity object', function (done) {
+        expect(new Entity(1, '', '', new Date(), 2, 2, 2, 2,
+            2)).to.be.instanceof(Entity);
+        done();
+    });
+
+    it('should fail to create an Entity object', function (done) {
         expect(function () {
-            new Book();
+            new Entity({uuid: 1, name: '', emails: '', birthDate: new Date(), phones: 2, cep: 2, document: 2, addresses: 2,
+                invalid: 2});
+        }).to.throw(Error);
+        done();
+    });
+
+    it('should fail to create an Entity object', function (done) {
+        expect(function () {
+            new Entity();
         }).to.throw(Error);
         done();
     });
