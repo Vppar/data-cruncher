@@ -25,13 +25,16 @@ for (var username in users) {
   states[username] = new UserState(fbRoot.child('users').child(username));
 }
 
-var subscriptionUpdateQueue = userRef.root().child('queues').child('pending').child('subscription-consultant-update');
+var subscriptionUpdateQueue = fbRoot.child('queues').child('subscription-consultant-update').child('pending');
 new WorkQueue(subscriptionUpdateQueue, function (data, whenFinished) {
 
   var username = data.consultant.email.replace(/\.+/g, '_');
 
   if (state[username]) {
-    state[username].interfaces.consultant.update({uuid: data.consultant.uuid, subscriptionExpirationDate: data.consultant.newSubscriptionExpirationDate});
+    var updatePromise = state[username].interfaces.consultant.update({uuid: data.consultant.uuid, subscriptionExpirationDate: data.consultant.newSubscriptionExpirationDate});
+    updatePromise.catch(function(error){
+      fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: error});
+    });
   }
 
   whenFinished();
