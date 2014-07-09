@@ -26,7 +26,7 @@ describe('Scheduling handler', function () {
     xit('should update a Schedule', function (done) {
         var schedulingHandler = new SchedulingHandler();
 
-        var schedule = new Schedule(1, 2, new Date(), [{id:1, dQty:0, sQty:0}]);
+        var schedule = new Schedule(1, new Date(), 2, new Date(), 4,[{id:1, dQty:0, sQty:0}]);
 
         schedulingHandler.handlers.schedulingCreateV1(schedule);
 
