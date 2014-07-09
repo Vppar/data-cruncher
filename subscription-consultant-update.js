@@ -5,7 +5,7 @@ var Firebase = require('firebase');
 var fbDev = new Firebase('https://voppwishlist.firebaseio.com/');
 var fbRoot = fbDev;
 
-var consultantUpdate = require("../mocks/consultant-update.json");
+var consultantUpdate = require("./test/mocks/consultant-update.json");
 
 // Authenticate in firebase
 fbDev.auth("zDDGKRwrgxuJ2gpzMVK5I9h2gNDB4dFup7AW5nrh", function (error) {
