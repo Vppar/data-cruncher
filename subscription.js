@@ -1,6 +1,7 @@
 var Firebase = require('firebase');
-var UserState = require('./lib/handlers/UserState.js');
-var WorkQueue = require('./lib/thirdparty/workqueue.js');
+var UserState = require('./lib/handlers/UserState');
+var WorkQueue = require('./lib/thirdparty/workqueue');
+var Consultant = require('./lib/entities/Consultant');
 
 var fbDev = new Firebase('https://voppwishlist.firebaseio.com/');
 
@@ -9,6 +10,7 @@ fbDev.auth("zDDGKRwrgxuJ2gpzMVK5I9h2gNDB4dFup7AW5nrh", function (error) {
     console.log("Login Failed!", error);
   } else {
     console.log("Login Succeeded!");
+    subscriptionUpdate();
   }
 });
 
@@ -18,24 +20,33 @@ var fbRoot = fbDev;
  console.log(userRef.child('email').val());
  });*/
 
-var users = ['wesleyakio@tuntscorp_com'];
-var states = [];
+function subscriptionUpdate() {
+  var users = ['arnaldo_rodrigues@tuntscorp_com'];
+  var states = {};
 
-for (var username in users) {
-  states[username] = new UserState(fbRoot.child('users').child(username));
-}
-
-var subscriptionUpdateQueue = fbRoot.child('queues').child('subscription-consultant-update').child('pending');
-new WorkQueue(subscriptionUpdateQueue, function (data, whenFinished) {
-
-  var username = data.consultant.email.replace(/\.+/g, '_');
-
-  if (state[username]) {
-    var updatePromise = state[username].interfaces.consultant.update({uuid: data.consultant.uuid, subscriptionExpirationDate: data.consultant.newSubscriptionExpirationDate});
-    updatePromise.catch(function(error){
-      fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: error});
-    });
+  for (var ix in users) {
+    states[users[ix]] = new UserState(fbRoot.child('users').child(users[ix]));
   }
 
-  whenFinished();
-});
+  var subscriptionUpdateQueue = fbRoot.child('queues').child('subscription-consultant-update').child('pending');
+  new WorkQueue(subscriptionUpdateQueue, function (data, whenFinished) {
+
+    var username = data.consultant.email.replace(/\.+/g, '_');
+
+    if (states[username]) {
+      try {
+        var updatePromise = states[username].interfaces.consultant.update(new Consultant({uuid: data.consultant.uuid, subscriptionExpirationDate: data.consultant.newSubscriptionExpirationDate}));
+        updatePromise.catch(function (error) {
+          throw new Error(error);
+        });
+      } catch (e) {
+        fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: e.message});
+      }
+
+    } else {
+      fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: 'User does not have a state'});
+    }
+
+    whenFinished();
+  });
+}
