@@ -1,3 +1,3 @@
-var Appointment = require('./lib/handlers/StockHandler');
+var Appointment = require('./lib/Keepers/masterKeeper');
 
 new Appointment();
