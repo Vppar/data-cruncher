@@ -38,6 +38,15 @@ describe('Entity handler', function () {
         done();
     });
 
+    it('should fail to update an entity', function (done) {
+        var entityHandler = new EntityHandler();
+
+        expect(function(){
+            entityHandler.handlers.entityUpdateV1(new Entity({}));
+        }).to.throw(Error);
+        done();
+    });
+
     it('should nuke the entities', function (done) {
         var entityHandler = new EntityHandler();
 

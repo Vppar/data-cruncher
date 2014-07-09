@@ -13,6 +13,18 @@ describe('Coin entity', function () {
         done();
     });
 
+    it('should create an Coin object', function (done) {
+        expect(new Coin(1, new Date(), 2, 3, new Date())).to.be.instanceof(Coin);
+        done();
+    });
+
+    it('should fail to create an Coin object with an invalid object', function (done) {
+        expect(function () {
+            new Coin({uuid:1, created:new Date(), entityId:2, amount:3, invalid:new Date()});
+        }).to.throw(Error);
+        done();
+    });
+
     it('should fail to create an Coin object', function (done) {
         expect(function () {
             new Coin();

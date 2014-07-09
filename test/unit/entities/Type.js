@@ -13,6 +13,18 @@ describe('Type entity', function () {
         done();
     });
 
+    it('should create an Type object', function (done) {
+        expect(new Type(2, '', '')).to.be.instanceof(Type);
+        done();
+    });
+
+    it('should fail to create an Type object with an invalid parameter', function (done) {
+        expect(function () {
+            new Type({id:2, name:'', invalid:''});
+        }).to.throw(Error);
+        done();
+    });
+
     it('should fail to create an Type object', function (done) {
         expect(function () {
             new Type();

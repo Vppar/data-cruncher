@@ -38,6 +38,15 @@ describe('Consultant handler', function () {
         done();
     });
 
+    it('should fail to update a consultant', function (done) {
+        var consultantHandler = new ConsultantHandler();
+
+        expect(function(){
+            consultantHandler.handlers.consultantUpdateV1(new Consultant({}));
+        }).to.throw(Error);
+        done();
+    });
+
     it('should nuke the Consultants', function (done) {
         var consultantHandler = new ConsultantHandler();
 
