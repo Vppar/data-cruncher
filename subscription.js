@@ -1,3 +1,5 @@
+'use strict';
+
 var Firebase = require('firebase');
 var UserState = require('./lib/handlers/UserState');
 var WorkQueue = require('./lib/thirdparty/workqueue');
@@ -21,7 +23,7 @@ var fbRoot = fbDev;
  });*/
 
 function subscriptionUpdate() {
-  var users = ['arnaldo_rodrigues@tuntscorp_com'];
+  var users = ['arnaldo_rodrigues@tuntscorp_com', 'lucas_andrade@tuntscorp_com', 'rafael_andrade@tuntscorp_com', 'rennan_nogarotto@tuntscorp_com', 'wesleyakio@tuntscorp_com'];
   var states = {};
 
   for (var ix in users) {
