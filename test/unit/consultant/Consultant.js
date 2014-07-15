@@ -10,7 +10,7 @@ var Consultant = consultantModule.Entity;
 
 describe('consultant entity', function () {
 
-    it('should create an consultant object', function (done) {
+    it('should create an Consultant object', function (done) {
         expect(new Consultant({})).to.be.instanceof(Consultant);
         done();
     });
@@ -20,7 +20,7 @@ describe('consultant entity', function () {
         done();
     });
 
-    it('should fail to create an consultant object with an invalid property', function (done) {
+    it('should fail to create a Consultant object with an invalid property', function (done) {
         expect(function () {
             new Consultant({uuid: 1, name: '', mkCode: 2, cep: 2, address: 1, cpf: 2, bank: 2, agency: 3, account: 4,
                 invalid: 1});
@@ -28,7 +28,7 @@ describe('consultant entity', function () {
         done();
     });
 
-    it('should fail to create an consultant object', function (done) {
+    it('should fail to create a Consultant object', function (done) {
         expect(function () {
             new Consultant();
         }).to.throw(Error);

@@ -16,7 +16,7 @@ describe('consultant handler', function () {
         done();
     });
 
-    it('should add a consultant', function (done) {
+    it('should add a Consultant', function (done) {
         var consultantHandler = new ConsultantHandler();
 
         consultantHandler.handlers.consultantCreateV1(new Consultant({}));
@@ -25,7 +25,7 @@ describe('consultant handler', function () {
         done();
     });
 
-    it('should update a consultant', function (done) {
+    it('should update a Consultant', function (done) {
         var consultantHandler = new ConsultantHandler();
 
         var consultant = new Consultant(1, 'name', 123, 123, 'addres', 222, 345, 123, 6543, 'email');
@@ -40,7 +40,7 @@ describe('consultant handler', function () {
         done();
     });
 
-    it('should fail to update a consultant', function (done) {
+    it('should fail to update a Consultant', function (done) {
         var consultantHandler = new ConsultantHandler();
 
         expect(function(){
