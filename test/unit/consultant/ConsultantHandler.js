@@ -4,10 +4,12 @@ chai.use(require("chai-as-promised"));
 
 var requireHelper = require('../../require-helper');
 
-var Consultant = requireHelper('entities/Consultant');
-var ConsultantHandler = requireHelper('handlers/ConsultantHandler');
+var consultantModule = requireHelper('consultant');
 
-describe('Consultant handler', function () {
+var Consultant = consultantModule.Entity;
+var ConsultantHandler = consultantModule.Handler;
+
+describe('consultant handler', function () {
 
     it('should create an instance of ConsultantHandler object', function (done) {
         expect(new ConsultantHandler()).to.be.instanceof(ConsultantHandler);
@@ -23,7 +25,7 @@ describe('Consultant handler', function () {
         done();
     });
 
-    it('should update a consultant', function (done) {
+    it('should update a Consultant', function (done) {
         var consultantHandler = new ConsultantHandler();
 
         var consultant = new Consultant(1, 'name', 123, 123, 'addres', 222, 345, 123, 6543, 'email');
@@ -38,7 +40,7 @@ describe('Consultant handler', function () {
         done();
     });
 
-    it('should fail to update a consultant', function (done) {
+    it('should fail to update a Consultant', function (done) {
         var consultantHandler = new ConsultantHandler();
 
         expect(function(){

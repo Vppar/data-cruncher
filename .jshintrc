@@ -17,5 +17,8 @@
   "unused": true,
   "strict": true,
   "trailing": true,
-  "smarttabs": true
+  "smarttabs": true,
+  //"maxcomplexity": 5,
+  //"maxstatements": 20,
+  "maxdepth": 5
 }
