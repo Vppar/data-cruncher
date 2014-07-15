@@ -10,12 +10,12 @@ var Consultant = consultantModule.Entity;
 
 describe('consultant entity', function () {
 
-    it('should create an Consultant object', function (done) {
+    it('should create a Consultant object', function (done) {
         expect(new Consultant({})).to.be.instanceof(Consultant);
         done();
     });
 
-    it('should create an consultant object', function (done) {
+    it('should create a Consultant object', function (done) {
         expect(new Consultant(1, '', 2, 2, 1, 2, 2, 3, 4, 1)).to.be.instanceof(Consultant);
         done();
     });
