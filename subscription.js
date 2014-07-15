@@ -3,7 +3,10 @@
 var Firebase = require('firebase');
 var UserState = require('./lib/handlers/UserState');
 var WorkQueue = require('./lib/thirdparty/workqueue');
-var Consultant = require('./lib/entities/Consultant');
+
+var consultantModule = require('./lib/data_modules/Consultant');
+
+var Consultant = consultantModule.Entity;
 
 var fbDev = new Firebase('https://voppwishlist.firebaseio.com/');
 

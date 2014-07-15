@@ -2,9 +2,11 @@ var chai = require("chai");
 var expect = chai.expect;
 chai.use(require("chai-as-promised"));
 
-var requireHelper = require('../../require-helper');
+var requireHelper = require('../../../require-helper');
 
-var Consultant = requireHelper('entities/Consultant');
+var consultantModule = requireHelper('data_modules/Consultant');
+
+var Consultant = consultantModule.Entity;
 
 describe('Consultant entity', function () {
 
