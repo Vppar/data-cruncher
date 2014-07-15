@@ -2,21 +2,21 @@ var chai = require("chai");
 var expect = chai.expect;
 chai.use(require("chai-as-promised"));
 
-var requireHelper = require('../../../require-helper');
+var requireHelper = require('../../require-helper');
 
-var consultantModule = requireHelper('data_modules/Consultant');
+var consultantModule = requireHelper('consultant');
 
 var Consultant = consultantModule.Entity;
 var ConsultantHandler = consultantModule.Handler;
 
-describe('Consultant handler', function () {
+describe('consultant handler', function () {
 
     it('should create an instance of ConsultantHandler object', function (done) {
         expect(new ConsultantHandler()).to.be.instanceof(ConsultantHandler);
         done();
     });
 
-    it('should add a Consultant', function (done) {
+    it('should add a consultant', function (done) {
         var consultantHandler = new ConsultantHandler();
 
         consultantHandler.handlers.consultantCreateV1(new Consultant({}));

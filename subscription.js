@@ -4,7 +4,7 @@ var Firebase = require('firebase');
 var UserState = require('./lib/handlers/UserState');
 var WorkQueue = require('./lib/thirdparty/workqueue');
 
-var consultantModule = require('./lib/data_modules/Consultant');
+var consultantModule = require('./lib/consultant');
 
 var Consultant = consultantModule.Entity;
 
