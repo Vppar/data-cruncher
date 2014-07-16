@@ -36,22 +36,26 @@ function subscriptionUpdate() {
   var subscriptionUpdateQueue = fbRoot.child('queues').child('subscription-consultant-update').child('pending');
   new WorkQueue(subscriptionUpdateQueue, function (data, whenFinished) {
 
-    var username = data.consultant.email.replace(/\.+/g, '_');
+    if(data.consultant && data.consultant.email) {
 
-    if (states[username]) {
-      try {
-        var updatePromise = states[username].interfaces.consultant.update(new Consultant({uuid: data.consultant.uuid, subscriptionExpirationDate: data.consultant.newSubscriptionExpirationDate}));
-        updatePromise.catch(function (error) {
-          throw new Error(error);
-        });
-      } catch (e) {
-        fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: e.message});
+      var username = data.consultant.email.replace(/\.+/g, '_');
+
+      if (states[username]) {
+        try {
+          var updatePromise = states[username].interfaces.consultant.update(new Consultant({uuid: data.consultant.uuid, subscriptionExpirationDate: data.consultant.newSubscriptionExpirationDate}));
+          updatePromise.catch(function (error) {
+            throw new Error(error);
+          });
+        } catch (e) {
+          fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: e.message});
+        }
+
+      } else {
+        fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: 'User does not have a state'});
       }
-
     } else {
-      fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: 'User does not have a state'});
+      fbRoot.child('queues').child('subscription-consultant-update').child('failed').push({message: data, error: 'Unable to identify the user'});
     }
-
     whenFinished();
   });
 }
