@@ -26,11 +26,6 @@ var fbRoot = fbDev;
 function subscriptionUpdate() {
   var states = {};
 
-  //var users = ['arnaldo_rodrigues+001@tuntscorp_com', 'lucas_andrade@tuntscorp_com', 'rafael_andrade@tuntscorp_com', 'rennan_nogarotto@tuntscorp_com', 'wesleyakio@tuntscorp_com'];
-  //for (var ix in users) {
-  //  states[users[ix]] = new UserState(fbRoot.child('users').child(users[ix]));
-  //}
-
   fbRoot.child('users').on('child_added', function (userRef) {
     var childAdded = userRef.name();
     console.log('Child added', childAdded);
