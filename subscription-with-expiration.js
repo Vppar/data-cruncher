@@ -5,8 +5,8 @@ var UserState = require('./lib/handlers/UserState');
 var WorkQueue = require('./lib/thirdparty/workqueue');
 
 var consultantModule = require('./lib/consultant');
-var SubscriptionReaper = require('./lib/subscription-fix/subcription/subscription-reaper');
-var subscriptionReaper = new SubscriptionReaper();
+var SubscriptionTools = require('./lib/subscription-tools');
+var subscriptionReaper = new SubscriptionTools();
 
 var Consultant = consultantModule.Entity;
 
