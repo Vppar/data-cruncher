@@ -21,17 +21,15 @@ fbDev.auth("zDDGKRwrgxuJ2gpzMVK5I9h2gNDB4dFup7AW5nrh", function (error) {
 
 var fbRoot = fbDev;
 
-/*fbRoot.child('users').on('child_added', function(userRef){
- console.log(userRef.child('email').val());
- });*/
-
 function subscriptionUpdate() {
-  var users = ['arnaldo_rodrigues@tuntscorp_com', 'lucas_andrade@tuntscorp_com', 'rafael_andrade@tuntscorp_com', 'rennan_nogarotto@tuntscorp_com', 'wesleyakio@tuntscorp_com'];
   var states = {};
 
-  for (var ix in users) {
-    states[users[ix]] = new UserState(fbRoot.child('users').child(users[ix]));
-  }
+  fbRoot.child('users').on('child_added', function (userRef) {
+    var childAdded = userRef.name();
+    console.log('Child added', childAdded);
+
+    states[childAdded] = new UserState(fbRoot.child('users').child(childAdded));
+  });
 
   var subscriptionUpdateQueue = fbRoot.child('queues').child('subscription-consultant-update').child('pending');
   new WorkQueue(subscriptionUpdateQueue, function (data, whenFinished) {
